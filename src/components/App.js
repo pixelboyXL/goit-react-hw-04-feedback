@@ -12,6 +12,7 @@ export const App = () => {
     bad: 0
   });
   const { good, neutral, bad } = feedback;
+
   const addFeedback = property => {
     setFedback(prevState => ({
       ...prevState,
@@ -25,37 +26,39 @@ export const App = () => {
     const total = good + neutral + bad;
     return total > 0 ? Math.round(100 / total * good) : 0;
   };
+
   const keys = Object.keys(feedback);
-    return (
-      <Box as="section"
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        mx="auto"
-        mt="350px"
-        width="250px"
-        p={5}
-        bg="maybeYellow"
-        border="normal"
-        borderRadius="sm"
-        borderColor="almostDarkGreen"
-        boxShadow="shadow"
-      >
-        <Section title="Please leave feedback">
-          <FeedbackOptions options={keys} onLeaveFeedback={addFeedback} />
-        </Section>
-        <Section title="Statistics">
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={countTotalFeedback()}
-            positivePercentage={countPositiveFeedbackPercentage()}
-          />
-        </Section>
-        <GlobalStyle />
-      </Box>
-    );
+
+  return (
+    <Box as="section"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      mx="auto"
+      mt="350px"
+      width="250px"
+      p={5}
+      bg="maybeYellow"
+      border="normal"
+      borderRadius="sm"
+      borderColor="almostDarkGreen"
+      boxShadow="shadow"
+    >
+      <Section title="Please leave feedback">
+        <FeedbackOptions options={keys} onLeaveFeedback={addFeedback} />
+      </Section>
+      <Section title="Statistics">
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={countTotalFeedback()}
+          positivePercentage={countPositiveFeedbackPercentage()}
+        />
+      </Section>
+      <GlobalStyle />
+    </Box>
+  );
 };
 
 /* <div
