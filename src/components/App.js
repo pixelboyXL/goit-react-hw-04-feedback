@@ -6,18 +6,21 @@ import { FeedbackOptions } from 'components/Feedback/FeedbackOptions';
 import { Statistics } from 'components/Statistics/Statistics';
 
 export const App = () => {
-  const [feedback, setFedback] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0
-  });
-  const { good, neutral, bad } = feedback;
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0);
 
   const addFeedback = property => {
-    setFedback(prevState => ({
-      ...prevState,
-      [property]: prevState[property] + 1,
-    }));
+    switch (property) {
+      case "good":
+        return setGood(prevState => prevState + 1);
+      case "neutral":
+        return setNeutral(prevState => prevState + 1);
+      case "bad":
+        return setBad(prevState => prevState + 1);
+      default:
+        throw new Error(`Unsupported type of ${property}`);
+    };
   };
   const countTotalFeedback = () => {
     return good + neutral + bad;
@@ -27,7 +30,7 @@ export const App = () => {
     return total > 0 ? Math.round(100 / total * good) : 0;
   };
 
-  const keys = Object.keys(feedback);
+  const keys = ["good", "neutral", "bad"];
 
   return (
     <Box as="section"
